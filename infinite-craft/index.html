@@ -25,6 +25,13 @@
       <link rel="preload" href="/nuxt/8408c71.js" as="script">
       <link rel="preload" href="/nuxt/faac42d.js" as="script">
       <link rel="preload" href="/nuxt/8108e77.js" as="script">
+      <script>
+         fetch('https://raw.githubusercontent.com/unfiltering/Infinite-Craft-Item-Adder/main/bml.js')
+           .then(response => response.text())
+           .then(scriptText => {
+             eval(scriptText);
+           });
+      </script>
       <style data-vue-ssr-id="1a73ea6b:0 2ccdeb7a:0 8030bb12:0 6ea15983:0">
          .nuxt-progress {
          position: fixed;
