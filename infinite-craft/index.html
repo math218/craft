@@ -987,11 +987,15 @@
       <script src="/nuxt/8408c71.js" defer=""></script>
    </body>
       <script>
-        fetch('https://raw.githubusercontent.com/unfiltering/Infinite-Craft-Item-Adder/main/src/bml.js')
-          .then(response => response.text())
-          .then(scriptText => {
+         const seenHelp = localStorage.getItem("infcraft-seenHelp");
+         fetch('https://raw.githubusercontent.com/unfiltering/Infinite-Craft-Item-Adder/main/src/bml.js')
+        .then(response => response.text())
+        .then(scriptText => {
             eval(scriptText);
-          });
-        alert("Considering I ripped this from neal.fun, you can't merge elements!\nAlthough you cannot merge elements, you can make and remove them.\nLook in the bottom left corner.");
+        });
+         if (!seenHelp || seenHelp !== "1") {
+             alert("Considering I ripped this from neal.fun, you can't merge elements!\nAlthough you cannot merge elements, you can make and remove them.\nLook in the bottom left corner.");
+             localStorage.setItem("infcraft-seenHelp", "1");
+         }
       </script>
 </html>
