@@ -43,6 +43,19 @@
          box-sizing: border-box;
          margin: 0
          }
+.container {
+    display: grid;
+    place-items: center; /* Centers the grid items both horizontally and vertically */
+}
+
+.posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-items: center; /* Centers the grid items horizontally */
+    align-items: center; /* Centers the grid items vertically */
+    margin-top: 20px;
+}
          .simple-page {
          background: #f1f2f6
          }
