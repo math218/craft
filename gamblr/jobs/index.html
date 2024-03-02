@@ -3,6 +3,9 @@
     if (localStorage.getItem('workgrade')) {
       var workGrade = parseInt(localStorage.getItem('workgrade'));
       switch (workGrade) {
+        case -1:
+          window.location.href = '/gamblr/upg.html';
+          break;
         case 0:
           window.location.href = 'work.html';
           break;
