@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAMBLR - Plinko</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .game-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 600px; /* Adjust container height as needed */
+    }
+
+    .container {
+      position: relative;
+      border: 2px solid black;
+      padding-top: 60px; /* Adjust padding to make space for win boxes */
+    }
+
+    .peg-row {
+      display: flex;
+      justify-content: center;
+    }
+
+    .peg {
+      width: 20px;
+      height: 20px;
+      background-color: gray;
+      border-radius: 50%;
+      margin: 10px;
+      z-index: 1;
+    }
+
+    .win-box-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px; /* Adjust margin as needed */
+    }
+
+    .win-box {
+      width: 100px; /* Adjust win box width as needed */
+      height: 30px; /* Adjust win box height as needed */
+      background-color: transparent;
+      border: 2px solid black;
+      margin: 0 5px;
+    }
+
+    .red { border-color: red; }
+    .orange { border-color: orange; }
+    .green { border-color: green; }
+
+    #chip {
+      width: 20px; /* Adjust chip size as needed */
+      height: 20px; /* Adjust chip size as needed */
+      background-color: blue; /* Adjust chip color as needed */
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 10px); /* Center horizontally */
+      transform: translateY(-80%); /* Adjust to position 80% up */
+      z-index: 2; /* Ensure chip is above pegs */
+    }
+
+    #drop-button {
+      margin-top: 20px; /* Adjust margin as needed */
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="container">
+      <div id="chip"></div>
+      <div class="peg-row">
+        <div class="peg"></div>
+      </div>
+      <div class="peg-row">
+        <div class="peg"></div>
+        <div class="peg"></div>
+      </div>
+      <div class="peg-row">
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+      </div>
+      <div class="peg-row">
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+      </div>
+      <div class="peg-row">
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+        <div class="peg"></div>
+      </div>
+      <div class="win-box-container">
+        <div class="win-box red"></div>
+        <div class="win-box orange"></div>
+        <div class="win-box green"></div>
+      </div>
+    </div>
+  </div>
+  <button id="drop-button">Drop Chip</button>
+  <div id="result-message"></div>
+</body>
+</html>

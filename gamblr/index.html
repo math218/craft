@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAMBLR</title>
+  <link rel="icon" type="image/x-icon" href="/gamblr/icon.png">
+  <link rel="stylesheet" href="/gamblr/css/gamblr.css">
+  <meta content="GAMBLR" property="og:title" />
+  <meta content="the worlds best chatgpt made gambling site, get to work!" property="og:description" />
+  <meta content="https://unfiltering.github.io/gamblr/" property="og:url" />
+  <meta content="https://unfiltering.github.io/gamblr/icon.png" property="og:image" />
+  <meta content="#43B581" data-react-helmet="true" name="theme-color" />
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var cashDisplay = document.querySelector('.cash-display');
+    var workgrade = localStorage.getItem('workgrade');
+    var cash = localStorage.getItem('cash');
+
+
+
+    if (cash) {
+      var formattedCash = parseFloat(cash).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      cashDisplay.textContent = '$' + formattedCash; // Add dollar sign
+    }
+
+
+    if (workgrade) {
+      var jobTile = document.querySelector('.tile:nth-child(2) .name');
+      var jobEmoji = document.querySelector('.tile:nth-child(2) .emoji');
+      var jobHref = document.querySelector('.tile:nth-child(2) a');
+
+      switch (parseInt(workgrade)) {
+        case -1:
+          jobTile.textContent = "(No Job) Hobo";
+          jobEmoji.textContent = "🤒";
+          jobHref.setAttribute('href', '/gamblr/');
+          cashDisplay.textContent = 'You have no job as of now! Go to workgrade to get one.'
+          break;
+        case 0:
+          jobTile.textContent = "Work Inc.";
+          jobEmoji.textContent = "📄";
+          jobHref.setAttribute('href', 'jobs/work.html');
+          break;
+        case 1:
+          jobTile.textContent = "Tech Support Co.";
+          jobEmoji.textContent = "💻";
+          jobHref.setAttribute('href', 'jobs/tsco.html');
+          break;
+        case 2:
+          jobTile.textContent = "Mechanic";
+          jobEmoji.textContent = "🧰";
+          jobHref.setAttribute('href', 'jobs/mechanic.html');
+          break;
+        case 10:
+          jobTile.textContent = "The Creator Divine";
+          jobEmoji.textContent = "😇🪽";
+          jobHref.setAttribute('href', 'games/lse.html');
+          break;
+      }
+    } else {
+      localStorage.setItem('workgrade', -1);
+      window.location.reload
+    }
+
+    var sequence = '';
+    var targetSequence = 'lse';
+    var redirectUrl = 'games/lse.html';
+
+    document.addEventListener('keydown', function (event) {
+      // Convert key code to uppercase letter
+      var keyPressed = String.fromCharCode(event.keyCode);
+
+      // Convert the input to lowercase before appending to the sequence
+      keyPressed = keyPressed.toLowerCase();
+
+      // Append the lowercase letter to the sequence
+      sequence += keyPressed;
+
+      // Check if the current sequence matches the target sequence
+      if (sequence === targetSequence) {
+        // Redirect to the specified URL
+        window.location.href = redirectUrl;
+
+        // Reset the sequence after redirection
+        sequence = '';
+      } else if (!targetSequence.startsWith(sequence)) {
+        // If the current sequence doesn't match any possible sequence,
+        // reset the sequence to start anew
+        sequence = '';
+      }
+    });
+  });
+
+</script>
+
+<body>
+  <h1>GAMBLR</h1>
+  <div class="cash-display">$</div>
+  <div class="tile-container">
+    <div class="tile">
+      <a href="upg.html">
+        <div class="emoji">🏬</div>
+        <div class="name">Workgrade</div>
+      </a>
+    </div>
+    <div class="tile">
+      <a href="/gamblr/">
+        <div class="emoji">🤔</div>
+        <div class="name">Unknown</div>
+      </a>
+    </div>
+    <div class="tile">
+      <a href="games/slots/">
+        <div class="emoji">🎰</div>
+        <div class="name">Slots</div>
+      </a>
+    </div>
+    <div class="tile">
+      <a href="games/crash/">
+        <div class="emoji">🚀💥</div>
+        <div class="name">Crash</div>
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

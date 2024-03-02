@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAMBLR - Work</title>
+  <link rel="icon" type="image/x-icon" href="/gamblr/icon.png">
+  <link rel="stylesheet" href="jobs.css">
+  <meta content="GAMBLR - Work Inc." property="og:title" />
+  <meta content="work on documents in borig office job" property="og:description" />
+  <meta content="https://unfiltering.github.io/gamblr/" property="og:url" />
+  <meta content="https://unfiltering.github.io/gamblr/icon.png" property="og:image" />
+  <meta content="#E4A700" data-react-helmet="true" name="theme-color" />
+  <style>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GAMBLR - Work Inc.</h1>
+    <div class="cash" id="cash-display"></div>
+    <div class="clicker" onclick="incrementCash()">📄</div>
+  </div>
+  <footer>
+    <p>Done creating documents? Go <a href="/gamblr/">home</a> and gamble it all away!</p>
+  </footer>
+  <script>
+    function incrementCash() {
+      if (typeof (Storage) !== "undefined") {
+        var randomValue = Math.round(Math.random() * (2.56666667 - 1) + 1);
+        if (localStorage.cash) {
+          localStorage.cash = parseInt(localStorage.cash) + randomValue;
+        } else {
+          localStorage.cash = randomValue;
+        }
+        document.getElementById("cash-display").textContent = "$" + numberWithCommas(localStorage.cash);
+      } else {
+        alert("Sorry, your browser does not support web storage...");
+      }
+    }
+
+    function numberWithCommas(x) {
+      return parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+
+
+    if (typeof (Storage) !== "undefined" && localStorage.cash) {
+      document.getElementById("cash-display").textContent = "$" + numberWithCommas(localStorage.cash);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Adjust opacity as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInOverlay 1s ease-in forwards;
+}
+
+/* Keyframes for fading in overlay */
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  display: none;
+  /* Initially hide the container */
+}
+
+/* Fade in container when overlay fades in */
+#overlay.fade-in .container {
+  display: flex;
+  /* Change display to flex */
+  flex-direction: column;
+  /* Add this line */
+  align-items: center;
+  /* Center align content horizontally */
+  opacity: 0;
+  animation: fadeInContainer 1s ease-in forwards;
+}
+
+/* Keyframes for fading in container */
+@keyframes fadeInContainer {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade in slot machine and work clicker */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+/* Keyframes for fading in elements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Align items at the start of the cross axis (top) */
+  height: 100vh;
+}
+
+#slot-machine,
+#work-clicker {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.reels {
+  display: flex;
+  justify-content: center;
+}
+
+.reel {
+  width: 100px;
+  height: 100px;
+  font-size: 3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin: 0 10px;
+  background-color: #f8f8f8;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+input {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  margin-top: 7px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 150px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="number"]:focus,
+button:focus {
+  outline: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#result-message {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+#cash-display {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+::placeholder {
+  /* Change the color here */
+  color: lightgray;
+  font-style: italic;
+}

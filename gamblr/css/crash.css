@@ -1,0 +1,102 @@
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #game-container {
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #rocket-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #121212;
+    }
+
+    #rocket {
+      width: 100px;
+      height: 200px;
+      background: url('https://emojicdn.elk.sh/rocket') no-repeat;
+      background-size: contain;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: bottom 2s ease-in-out, left 2s ease-in-out;
+    }
+
+    #bet-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #bet-amount {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      margin-top: 7px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 150px;
+      box-sizing: border-box;
+    }
+
+    #bet-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #bet-button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    #bet-button:hover:not([disabled]) {
+      background-color: #45a049;
+    }
+
+    #cash-display {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    #work-clicker {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+    }
+
+    #result {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }

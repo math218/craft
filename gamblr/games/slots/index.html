@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAMBLR - Slots</title>
+  <link rel="icon" type="image/x-icon" href="/gamblr/icon.png">
+  <meta content="GAMBLR - Slots" property="og:title" />
+  <meta content="Spin a wheel, three in a row, you win cash." property="og:description" />
+  <meta content="https://unfiltering.github.io/gamblr/" property="og:url" />
+  <meta content="https://unfiltering.github.io/gamblr/icon.png" property="og:image" />
+  <meta content="#E4A700" data-react-helmet="true" name="theme-color" />
+  <link rel="stylesheet" href="/gamblr/css/slots.css">
+  <style>
+    /* Styling for the footer */
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-top: auto;
+      /* Push footer to the bottom */
+      width: 100%;
+      background-color: #f0f0f0;
+      /* Background color for the footer */
+      padding: 10px 0;
+      /* Padding for better appearance */
+    }
+
+    footer a {
+      color: #337ab7;
+      /* Blue color for links */
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      /* Underline effect on hover */
+    }
+  </style>
+  <style type="text/css" id="operaUserStyle"></style>
+</head>
+
+<body>
+  <div id="overlay">
+    <div class="container">
+      <div class="content">
+        <h1>🎰 GAMBLR Slots</h1>
+        <p id="description">Filler text :P</p>
+        <div id="slot-machine">
+          <div class="reels">
+            <div class="reel" id="reel1">🎰</div>
+            <div class="reel" id="reel2">🎰</div>
+            <div class="reel" id="reel3">🎰</div>
+          </div>
+          <div class="button-container">
+            <input type="number" id="bet-amount" placeholder="Bet Amount">
+            <button id="spin-button">Spin</button>
+          </div>
+          <div id="cash-display">Cash: $<span id="cash-value">100</span></div> <!-- Cash display -->
+          <p id="result-message"></p>
+        </div>
+        <footer>
+          Not enough cash? Go to <a href="/gamblr/work.html">work</a>!  |  <a href="/gamblr/">Home</a>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <script src="/gamblr/js/slots.js"></script>
+</body>
+
+</html>

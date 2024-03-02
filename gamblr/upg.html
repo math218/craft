@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylish Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: none;
+      transition: text-decoration 0.3s ease;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Stylish Shop</h1>
+    <p>Cash: <span id="cashDisplay">0</span></p>
+    <p>Upgrade Amount/Cost: <span id="upgradeAmountDisplay">500</span></p>
+    <p>Work Grade: <span id="workGradeDisplay">0</span></p>
+    <button onclick="upgrade()">Upgrade</button>
+    <button onclick="downgrade()">Downgrade</button>
+    <button onclick="resetWorkGrade()">Reset Work Grade</button>
+  </div>
+
+  <footer>
+    <a href="/gamblr/">Back to <span>Home</span></a>
+  </footer>
+
+  <script>
+    // Check if localStorage is supported
+    if (typeof (Storage) !== "undefined") {
+      // Retrieve cash, work grade, and upgrade amount from localStorage, or set them to default values if they don't exist
+      var cash = parseInt(localStorage.getItem("cash")) || 0;
+      var workGrade = parseInt(localStorage.getItem("workgrade")) || 0;
+      var upgradeAmount = parseInt(localStorage.getItem("upgradeAmount")) || 0;
+
+      // Update displays
+      document.getElementById("cashDisplay").innerText = cash.toLocaleString();
+      document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
+      document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
+
+      // Function to upgrade
+      function upgrade() {
+        // Check if player has enough cash to upgrade and work grade is less than the maximum
+        if (cash >= upgradeAmount && workGrade < 2) {
+          // Deduct upgrade cost from cash
+          cash -= upgradeAmount;
+
+          // Increment work grade
+          workGrade += 1;
+
+          // Update displays
+          document.getElementById("cashDisplay").innerText = cash.toLocaleString();
+          document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
+          if (workGrade >= 0) {
+            localStorage.setItem('cash', 0);
+          }
+          // Save cash, work grade, and upgrade amount to localStorage
+          localStorage.setItem("cash", cash);
+          localStorage.setItem("workgrade", workGrade);
+
+          // Increase upgrade amount by 500
+          upgradeAmount += 500;
+          document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
+          localStorage.setItem("upgradeAmount", upgradeAmount);
+        } else if (workGrade >= 2) {
+          alert("You have reached the maximum workgrade!");
+        } else {
+          alert("You don't have enough cash to upgrade!");
+        }
+      }
+
+      // Function to downgrade
+      function downgrade() {
+        // Check if upgrade amount is greater than 500
+        if (upgradeAmount > 500) {
+          // Deduct downgrade fee
+          cash -= 50;
+
+          // Decrease upgrade amount by 500
+          upgradeAmount -= 500;
+
+          // Deduct work grade by 1
+          workGrade -= 1;
+
+          // Increment cash by 450
+          cash += 450;
+
+          // Update displays
+          document.getElementById("cashDisplay").innerText = cash.toLocaleString();
+          document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
+          document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
+
+          // Save cash and upgrade amount to localStorage
+          localStorage.setItem("cash", cash);
+          localStorage.setItem("workgrade", workGrade);
+          localStorage.setItem("upgradeAmount", upgradeAmount);
+        }
+      }
+
+      // Function to reset work grade
+      function resetWorkGrade() {
+        cash = cash + (workGrade * 450)
+        workGrade = 0;
+        upgradeAmount = 500;
+        localStorage.setItem("cash", cash);
+        localStorage.setItem("upgradeAmount", upgradeAmount);
+        localStorage.setItem("workgrade", workGrade);
+        document.getElementById("cashDisplay").innerText = cash.toLocaleString();
+        document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
+        document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
+      }
+    } else {
+      // If localStorage is not supported, display an error message
+      document.write("Sorry, your browser does not support web storage...");
+    }
+  </script>
+</body>
+
+</html>

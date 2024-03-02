@@ -1,0 +1,43 @@
+.game-container {
+  position: relative;
+  width: 500px; /* Adjust container width as needed */
+  margin: 0 auto; /* Center the container */
+}
+
+.container {
+  position: relative;
+  border: 2px solid black; /* Border style for visibility */
+}
+
+.peg-row {
+  display: flex;
+  justify-content: center; /* Center the pegs horizontally */
+}
+
+.peg {
+  width: 20px;
+  height: 20px;
+  background-color: gray;
+  border-radius: 50%;
+  margin: 10px;
+  z-index: 1; /* Ensure pegs are behind chip */
+}
+
+.win-box-container {
+  display: flex;
+  justify-content: center; /* Align items horizontally in the center */
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.win-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 5px; /* Adjust margin as needed */
+}
+
+.red { background-color: red; }
+.orange { background-color: orange; }
+.green { background-color: green; }
