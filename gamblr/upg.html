@@ -147,8 +147,8 @@
 
       function resetWorkGrade() {
         cash = cash + (workGrade * 450)
-        workGrade = 0;
-        upgradeAmount = 500;
+        workGrade = -1;
+        upgradeAmount = 0;
         localStorage.setItem("cash", cash);
         localStorage.setItem("upgradeAmount", upgradeAmount);
         localStorage.setItem("workgrade", workGrade);
