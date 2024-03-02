@@ -1,0 +1,28 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('workgrade')) {
+      var workGrade = parseInt(localStorage.getItem('workgrade'));
+      switch (workGrade) {
+        case 0:
+          window.location.href = 'work.html';
+          break;
+        case 1:
+          window.location.href = 'tsco.html';
+          break;
+        case 2:
+          window.location.href = 'mechanic.html';
+          break;
+        case 3:
+          window.location.href = 'amazong.html';
+          break;
+        case 10:
+          window.location.href = '/gamblr/games/lse.html';
+          break;
+        default:
+          window.location.href = '/gamblr/';
+      }
+    } else {
+      window.location.href = '/gamblr/';
+    }
+  });
+</script>
