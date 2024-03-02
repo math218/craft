@@ -130,9 +130,11 @@
     } else {
       function updateBalance(amount) {
         balance += amount;
-        document.getElementById('balance').textContent = balance;
+        const formattedBalance = balance.toLocaleString(); // Format balance with commas
+        document.getElementById('balance').textContent = formattedBalance;
         localStorage.setItem('cash', balance);
       }
+
 
       function getRandomReward(type) {
         const worthlessChance = WORTHLESS_BOX_CHANCE;
