@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAMBLR - Amazong Work Inc.</title>
+  <link rel="icon" type="image/x-icon" href="/gamblr/icon.png">
+  <link rel="stylesheet" href="jobs.css">
+  <meta content="GAMBLR - Amazong Returned Items Job" property="og:title" />
+  <meta content="pry open returned items and keep them" property="og:description" />
+  <meta content="https://unfiltering.github.io/gamblr/" property="og:url" />
+  <meta content="https://unfiltering.github.io/gamblr/icon.png" property="og:image" />
+  <meta content="#E4A700" data-react-helmet="true" name="theme-color" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    #balance {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    #resultText {
+      margin-top: 20px; /* Top margin */
+      font-size: 18px; /* Adjust font size */
+      color: #333; /* Adjust color */
+    }
+
+    .case {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="number"]:focus,
+    .case:focus {
+      outline: none;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .case:hover {
+      background-color: #45a049;
+    }
+
+    .case:disabled {
+      cursor: not-allowed;
+      /* Change cursor to not-allowed */
+      opacity: 0.6;
+      /* Reduce opacity to visually indicate disabled state */
+    }
+
+    .spinner {
+      width: 100px;
+      height: 100px;
+      background-image: url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif');
+      background-size: cover;
+      display: none;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    footer {
+      margin-top: auto;
+      background: #f9f9f9;
+      padding: 10px 0;
+    }
+
+    footer p {
+      color: gray;
+    }
+
+    footer a {
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>GAMBLR - Amazong Work Inc.</h1>
+
+  <p>Cash: $<span id="balance">0</span></p>
+  <div id="cases">
+    <button class="case" data-type="small" data-price="10" onclick="openCase('small')">Small Box ($10)</button>
+    <button class="case" data-type="medium" data-price="20" onclick="openCase('medium')">Medium Box ($20)</button>
+    <button class="case" data-type="large" data-price="50" onclick="openCase('large')">Large Box ($50)</button>
+  </div>
+  <div id="resultText">Buy a box, sell it for more or less cash!</div>
+  <div class="spinner" id="spinner"></div>
+
+  <footer>
+    <p>Done opening boxes? Go <a href="/gamblr/">home</a>!</p>
+  </footer>
+
+  <script>
+    const WORTHLESS_BOX_CHANCE = 0.096666667 // percent
+
+    
+    let balance = parseInt(localStorage.getItem('cash')) || 0;
+    document.getElementById('balance').textContent = balance; // Set initial balance display
+    if (typeof (Storage) !== "undefined" && (!localStorage.workgrade || parseInt(localStorage.workgrade) <= 2)) {
+      window.location.href = "/gamblr/";
+    } else {
+      function updateBalance(amount) {
+        balance += amount;
+        document.getElementById('balance').textContent = balance;
+        localStorage.setItem('cash', balance);
+      }
+
+      function getRandomReward(type) {
+        const worthlessChance = WORTHLESS_BOX_CHANCE;
+        const worth = Math.random() > worthlessChance;
+        let reward;
+        if (!worth) {
+          reward = 0; // Worthless reward
+        } else {
+          switch (type) {
+            case 'small':
+              reward = Math.floor(Math.random() * 13) + 8;  // Reward for common case
+              break;
+            case 'medium':
+              reward = Math.floor(Math.random() * 21) + 15;
+              break;
+            case 'large':
+              reward = Math.floor(Math.random() * 62) + 37;  // Reward for legendary case
+              break;
+            default:
+              reward = 0;
+          }
+        }
+        return reward;
+      }
+    }
+
+    function openCase(type) {
+      const button = document.querySelector(`.case[data-type='${type}']`);
+      const price = parseInt(button.getAttribute('data-price'));
+      if (balance < price) {
+        document.getElementById('resultText').textContent = "Insufficient funds!";
+        return;
+      }
+
+      // Disable case buttons while spinning
+      const buttons = document.querySelectorAll('.case');
+      buttons.forEach(button => button.disabled = true);
+      document.getElementById('resultText').textContent = `Inspecting box...`;
+      updateBalance(-price); // Deduct the price from balance
+
+      // Show spinner while waiting for result
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'block';
+
+      // Wait for 2-3 seconds before showing result
+      setTimeout(() => {
+        // Enable case buttons after spinning
+        buttons.forEach(button => button.disabled = false);
+
+        spinner.style.display = 'none';
+        const reward = getRandomReward(type);
+        if (reward === 0) {
+          document.getElementById('resultText').textContent = `You opened a ${type} box and found nothing valuable!`;
+        } else {
+          updateBalance(reward);
+          document.getElementById('resultText').textContent = `You opened a ${type} box and found $${reward}!`;
+        }
+      }, Math.floor(Math.random() * 2000) + 1000);
+    }
+
+    // Initially disable case buttons if the balance is zero or insufficient
+    window.onload = function () {
+      const buttons = document.querySelectorAll('.case');
+      buttons.forEach(button => {
+        const price = parseInt(button.getAttribute('data-price'));
+        if (balance < price) {
+          button.disabled = true;
+        }
+      });
+    };
+  </script>
+</body>
+
+</html>

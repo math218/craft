@@ -55,6 +55,11 @@
           jobEmoji.textContent = "🧰";
           jobHref.setAttribute('href', 'jobs/mechanic.html');
           break;
+          case 3:
+            jobTile.textContent = "Amazong Inc.";
+            jobEmoji.textContent = "📦";
+            jobHref.setAttribute('href', 'jobs/amazong.html');
+            break;
         case 10:
           jobTile.textContent = "The Creator Divine";
           jobEmoji.textContent = "😇🪽";
@@ -63,7 +68,7 @@
       }
     } else {
       localStorage.setItem('workgrade', -1);
-      window.location.reload();
+      window.location.reload
     }
 
     var sequence = '';

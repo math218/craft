@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workgrade</title>
+  <title>GAMBLR - Upgrades</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -78,13 +78,13 @@
 
 <body>
   <div class="container">
-    <h1>Workgrade (Work Upgrades)</h1>
+    <h1>Workgrade</h1>
     <p>Cash: <span id="cashDisplay">0</span></p>
     <p>Upgrade Amount/Cost: <span id="upgradeAmountDisplay">500</span></p>
-    <p>Workgrade: <span id="workGradeDisplay">0</span></p>
+    <p>Work Grade: <span id="workGradeDisplay">0</span></p>
     <button onclick="upgrade()">Upgrade</button>
     <button onclick="downgrade()">Downgrade</button>
-    <button onclick="resetWorkGrade()">Reset Workgrade</button>
+    <button onclick="resetWorkGrade()">Reset Work Grade</button>
   </div>
 
   <footer>
@@ -92,62 +92,84 @@
   </footer>
 
   <script>
+    // Check if localStorage is supported
     if (typeof (Storage) !== "undefined") {
+      // Retrieve cash, work grade, and upgrade amount from localStorage, or set them to default values if they don't exist
       var cash = parseInt(localStorage.getItem("cash")) || 0;
       var workGrade = parseInt(localStorage.getItem("workgrade")) || 0;
       var upgradeAmount = parseInt(localStorage.getItem("upgradeAmount")) || 0;
+      var maximumWorkgrade = 3
 
+      // Update displays
       document.getElementById("cashDisplay").innerText = cash.toLocaleString();
       document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
       document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
 
+      // Function to upgrade
       function upgrade() {
-        if (cash >= upgradeAmount && workGrade < 2) {
+        // Check if player has enough cash to upgrade and work grade is less than the maximum
+        if (cash >= upgradeAmount && workGrade < maximumWorkgrade) {
+          // Deduct upgrade cost from cash
           cash -= upgradeAmount;
 
+          // Increment work grade
           workGrade += 1;
 
+          // Update displays
           document.getElementById("cashDisplay").innerText = cash.toLocaleString();
           document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
           if (workGrade >= 0) {
             localStorage.setItem('cash', 0);
           }
+          // Save cash, work grade, and upgrade amount to localStorage
           localStorage.setItem("cash", cash);
           localStorage.setItem("workgrade", workGrade);
 
+          // Increase upgrade amount by 500
           upgradeAmount += 500;
           document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
           localStorage.setItem("upgradeAmount", upgradeAmount);
-        } else if (workGrade >= 2) {
+        } else if (workGrade >= maximumWorkgrade) {
           alert("You have reached the maximum workgrade!");
-        } else {
+        } else if (cash < upgradeAmount) {
           alert("You don't have enough cash to upgrade!");
         }
       }
 
+      // Function to downgrade
       function downgrade() {
-        if (upgradeAmount > 500) {
+        // Check if upgrade amount is greater than 500
+        if (upgradeAmount > 0) {
+          // Deduct downgrade fee
           cash -= 50;
 
+          // Decrease upgrade amount by 500
           upgradeAmount -= 500;
 
+          // Deduct work grade by 1
           workGrade -= 1;
 
+          // Increment cash by 450
           cash += 450;
 
+          // Update displays
           document.getElementById("cashDisplay").innerText = cash.toLocaleString();
           document.getElementById("workGradeDisplay").innerText = workGrade.toLocaleString();
           document.getElementById("upgradeAmountDisplay").innerText = upgradeAmount.toLocaleString();
 
+          // Save cash and upgrade amount to localStorage
           localStorage.setItem("cash", cash);
           localStorage.setItem("workgrade", workGrade);
           localStorage.setItem("upgradeAmount", upgradeAmount);
         }
       }
 
+      // Function to reset work grade
       function resetWorkGrade() {
+        cash = cash + (workGrade * 450)
         workGrade = -1;
         upgradeAmount = 0;
+        localStorage.setItem("cash", cash);
         localStorage.setItem("upgradeAmount", upgradeAmount);
         localStorage.setItem("workgrade", workGrade);
         document.getElementById("cashDisplay").innerText = cash.toLocaleString();
