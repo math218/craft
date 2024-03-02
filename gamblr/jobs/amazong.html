@@ -111,7 +111,7 @@
     <button class="case" data-type="small" data-price="10" onclick="openCase('small')">Small Box ($10)</button>
     <button class="case" data-type="medium" data-price="20" onclick="openCase('medium')">Medium Box ($20)</button>
     <button class="case" data-type="large" data-price="50" onclick="openCase('large')">Large Box ($50)</button>
-    <button class="case" data-type="xl" data-price="50" onclick="openCase('xl')">Extra Large Box ($150)</button>
+    <button class="case" data-type="extralarge" data-price="50" onclick="openCase('extralarge')">Extra Large Box ($150)</button>
   </div>
   <div id="resultText">Buy a box, sell it for more or less cash!</div>
   <div class="spinner" id="spinner"></div>
@@ -155,7 +155,7 @@
             case 'large':
               reward = Math.floor(Math.random() * 62) + 37;
               break;
-            case 'xl':
+            case 'extralarge':
               reward = Math.floor(Math.random() * 131) + 159;
               break;
             default:
