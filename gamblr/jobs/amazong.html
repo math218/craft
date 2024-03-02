@@ -123,7 +123,7 @@
     const WORTHLESS_BOX_CHANCE = 0.096666667 // percent
     
     let balance = parseInt(localStorage.getItem('cash')) || 0;
-    const formattedBalance = balance.toLocaleString(); // Format balance with commas
+    const formattedBalance = balance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById('balance').textContent = formattedBalance;
     if (typeof (Storage) !== "undefined" && (!localStorage.workgrade || parseInt(localStorage.workgrade) <= 2)) {
       window.location.href = "/gamblr/";
@@ -131,10 +131,11 @@
       
       function updateBalance(amount) {
         balance += amount;
-        const formattedBalance = balance.toLocaleString(); // Format balance with commas
+        const formattedBalance = balance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         document.getElementById('balance').textContent = formattedBalance;
         localStorage.setItem('cash', balance);
       }
+
 
       function getRandomReward(type) {
         const worthlessChance = WORTHLESS_BOX_CHANCE;
