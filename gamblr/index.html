@@ -25,6 +25,8 @@
     if (cash) {
       var formattedCash = parseFloat(cash).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
       cashDisplay.textContent = '$' + formattedCash; // Add dollar sign
+    } else if (cash <= 0) {
+      localStorage.setItem(cash, 0)
     }
 
 
