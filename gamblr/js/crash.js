@@ -23,7 +23,7 @@ function resetRocket() {
 
   setTimeout(() => {
     rocket.style.transition = 'none';
-    rocket.style.backgroundImage = "url('https://emojicdn.elk.sh/rocket')";
+    rocket.style.backgroundImage = "url('/gamblr/images/rocket.png')";
     rocket.style.bottom = '0';
     rocket.style.left = '0';
     rocket.offsetHeight;
@@ -71,8 +71,8 @@ function placeBet() {
   setTimeout(() => {
     if (crashChance < CRASH_CHANCE) {
       const lostAmount = betAmount;
-      displayResult(`The rocket crashed! You lost $${lostAmount.toLocaleString()}`);
-      rocket.style.backgroundImage = "url('https://emojicdn.elk.sh/💥')";
+      displayResult(`The rocket exploded! You lost $${lostAmount.toLocaleString()}, you'll get it next time! :)`);
+      rocket.style.backgroundImage = "url('/gamblr/images/boom.png')";
       setTimeout(resetRocket, 1000);
       localStorage.setItem('cash', (cashValue - betAmount).toFixed(2));
       updateCashDisplay();
@@ -82,14 +82,13 @@ function placeBet() {
       const actualWonAmount = wonAmount - betAmount;
 
       if (actualWonAmount < (betAmount + 0.5)) {
-        alert("Somehow the amount you bet was less than the actual amount you won.\nThis shouldn't happen, so we're reloading the page before it happens.\nWe're actively working on this issue. Sorry for the inconvenience.");
-        window.location.reload();
-      } else {
-
-        displayResult(`The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
+        const wonAmount = betAmount * 3;
+        const actualWonAmount = wonAmount - betAmount;
+        displayResult(`* The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
         setTimeout(resetRocket, 480);
         localStorage.setItem('cash', (cashValue + actualWonAmount).toFixed(2));
         updateCashDisplay();
+      } else {
       }
     }
   }, ROCKET_SPEED);
