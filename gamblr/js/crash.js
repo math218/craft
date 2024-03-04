@@ -7,7 +7,9 @@ const ERROR_AWARD = 5.8 // The amount of times cash is multiplied if the cash is
 document.addEventListener('DOMContentLoaded', initialize);
 
 function initialize() {
+  const rocket = document.getElementById('rocket');
   updateCashDisplay();
+  rocket.style.backgroundImage = "url('/gamblr/images/rocket.png')";
   document.getElementById('bet-button').addEventListener('click', placeBet);
 }
 
@@ -19,7 +21,6 @@ function updateCashDisplay() {
 
 function resetRocket() {
   const rocket = document.getElementById('rocket');
-
   rocket.style.transition = 'opacity 0.6s ease-in-out';
   rocket.style.opacity = '0';
 
