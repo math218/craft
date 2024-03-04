@@ -77,20 +77,23 @@ function placeBet() {
       localStorage.setItem('cash', (cashValue - betAmount).toFixed(2));
       updateCashDisplay();
     } else {
-      const randomMultiplier = (Math.random() * 3) + 1.5;
+      const randomMultiplier = (Math.random() * 3) + 1;
       const wonAmount = betAmount * randomMultiplier;
       const actualWonAmount = wonAmount - betAmount;
-
       if (actualWonAmount < (betAmount + 0.5)) {
-        const awardedAmount = cashValue * 3
-        localStorage.setItem('cash', (cashValue * 3).toFixed(2));
-        displayResult(`An error occured. You've been given $${awardedAmount.toLocaleString()}.`);
-      } else {
+        const wonAmount = betAmount * 3;
+        const actualWonAmount = wonAmount - betAmount;
+        displayResult(`⭐ The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
         setTimeout(resetRocket, 480);
-        displayResult(`The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
         localStorage.setItem('cash', (cashValue + actualWonAmount).toFixed(2));
         updateCashDisplay();
       } else {
+        const wonAmount = betAmount * randomMultiplier;
+        const actualWonAmount = wonAmount - betAmount;
+        displayResult(`🌑 The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
+        setTimeout(resetRocket, 480);
+        localStorage.setItem('cash', (cashValue + actualWonAmount).toFixed(2));
+        updateCashDisplay();
       }
     }
   }, ROCKET_SPEED);
