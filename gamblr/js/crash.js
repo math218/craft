@@ -2,6 +2,7 @@ const CRASH_CHANCE = 0.4999998;
 const ROCKET_SPEED = 2000; // ms
 const RESPAWN_SPEED = 840 // ms
 
+
 document.addEventListener('DOMContentLoaded', initialize);
 
 function initialize() {
