@@ -69,7 +69,7 @@ function placeBet() {
   rocket.style.transition = 'bottom 2s ease-in-out, left 2s ease-in-out';
   rocket.style.bottom = newAscent + 'px';
   rocket.style.left = newForward + 'px';
-
+  displayResult(`🚀 The rocket is ascending...`);
   setTimeout(() => {
     if (crashChance < CRASH_CHANCE) {
       const lostAmount = betAmount;
