@@ -1,6 +1,7 @@
 const CRASH_CHANCE = 0.4999998;
 const ROCKET_SPEED = 2000; // ms
 const RESPAWN_SPEED = 840 // ms
+const ERROR_AWARD = 5.8 // The amount of times cash is multiplied if the cash is below the bet amount
 
 
 document.addEventListener('DOMContentLoaded', initialize);
@@ -82,7 +83,7 @@ function placeBet() {
       const wonAmount = betAmount * randomMultiplier;
       const actualWonAmount = wonAmount - betAmount;
       if (actualWonAmount < (betAmount + 0.5)) {
-        const wonAmount = betAmount * 3;
+        const wonAmount = betAmount * ERROR_AWARD;
         const actualWonAmount = wonAmount - betAmount;
         displayResult(`⭐ The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
         setTimeout(resetRocket, 480);
