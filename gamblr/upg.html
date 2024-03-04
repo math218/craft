@@ -80,7 +80,7 @@
   <div class="container">
     <h1>Workgrade</h1>
     <p>Cash: <span id="cashDisplay">0</span></p>
-    <p>Upgrade Amount/Cost: <span id="upgradeAmountDisplay">500</span></p>
+    <p>Upgrade Amount/Cost: <span id="upgradeAmountDisplay">0</span></p>
     <p>Work Grade: <span id="workGradeDisplay">0</span></p>
     <button onclick="upgrade()">Upgrade</button>
     <button onclick="downgrade()">Downgrade</button>
@@ -141,6 +141,7 @@
         // Check if upgrade amount is greater than 500
         if (upgradeAmount > 0) {
           // Deduct downgrade fee
+          cash += 500;
           cash -= 50;
 
           // Decrease upgrade amount by 500
@@ -150,7 +151,6 @@
           workGrade -= 1;
 
           // Increment cash by 450
-          cash += 450;
 
           // Update displays
           document.getElementById("cashDisplay").innerText = cash.toLocaleString();
