@@ -82,10 +82,12 @@ function placeBet() {
       const actualWonAmount = wonAmount - betAmount;
 
       if (actualWonAmount < (betAmount + 0.5)) {
-        const wonAmount = betAmount * 3;
-        const actualWonAmount = wonAmount - betAmount;
-        displayResult(`* The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
+        const awardedAmount = cashValue * 3
+        localStorage.setItem('cash', (cashValue * 3).toFixed(2));
+        displayResult(`An error occured. You've been given $${awardedAmount.toLocaleString()}.`);
+      } else {
         setTimeout(resetRocket, 480);
+        displayResult(`The rocket made it! You won $${actualWonAmount.toLocaleString()}`);
         localStorage.setItem('cash', (cashValue + actualWonAmount).toFixed(2));
         updateCashDisplay();
       } else {
