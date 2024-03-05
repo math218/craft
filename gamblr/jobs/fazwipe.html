@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMBLR - Faz-Ass Wipe</title>
+    <title>GAMBLR - FazWipe</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,9 +89,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Retrieve cash from localStorage or initialize to 0
             let cash = parseInt(localStorage.getItem("cash")) || 0;
-            document.getElementById("cash").textContent = cash;
-	          document.getElementById("result").textContent = "Wipe your Freddy Faz-Ass for cash.";
-            document.getElementById("wipeButton").addEventListener("click", function() {
+            	document.getElementById("cash").textContent = cash;
+		document.getElementById("result").textContent = "Wipe your Faz-Ass for cash!";
+          	document.getElementById("wipeButton").addEventListener("click", function() {
                 let betAmount = parseInt(document.getElementById("betAmount").value);
                 if (isNaN(betAmount) || betAmount <= 0) {
                     document.getElementById("result").textContent = "Enter a valid bet amount!";
