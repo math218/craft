@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMBLR - Faz-Ass Wipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #game-container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .bet-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 70%;
+            box-sizing: border-box;
+        }
+
+        .bet-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bet-button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .bet-button:hover:not([disabled]) {
+            background-color: #45a049;
+        }
+
+        #cash-display {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>GAMBLR - Faz-Ass Wipe</h1>
+        <p>Wipe your Faz-Ass, bet on if its clean or not.</p>
+        <p id="cash-display">Current Cash: <span id="cash">0</span></p>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <input type="number" id="betAmount" min="1" step="1" placeholder="Enter bet amount" class="bet-input">
+            <button id="wipeButton" class="bet-button">Wipe!</button>
+        </div>
+        <p id="result"></p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Retrieve cash from localStorage or initialize to 0
+            let cash = parseInt(localStorage.getItem("cash")) || 0;
+            document.getElementById("cash").textContent = cash;
+	          document.getElementById("result").textContent = "Wipe your Freddy Faz-Ass for cash.";
+            document.getElementById("wipeButton").addEventListener("click", function() {
+                let betAmount = parseInt(document.getElementById("betAmount").value);
+                if (isNaN(betAmount) || betAmount <= 0) {
+                    document.getElementById("result").textContent = "Enter a valid bet amount!";
+                    return;
+                }
+
+                if (betAmount > cash) {
+                    document.getElementById("result").textContent = "Insufficient funds.";
+                    return;
+                }
+
+                // Disable the button and show "Wiping" message
+                document.getElementById("wipeButton").disabled = true;
+                document.getElementById("result").textContent = "Wiping...";
+
+                // Simulate wiping with a 10% chance of getting poop on fingers
+                setTimeout(function() {
+                    if (Math.random() <= 0.5) {
+                        if (Math.random() <= 0.3) {
+			                      crustloss = ( betAmount * 1.5 );
+                            loss = (cash - crustloss);
+			                      rich = (cash - loss);
+			                      broke = (cash - betAmount);
+                            if (cash >= loss) {
+                            localStorage.setItem("cash", rich);
+			                      cash = rich
+                            } else {
+                            localStorage.setItem("cash", broke);
+			                      cash = broke
+                            }
+                            document.getElementById("cash").textContent = cash;
+                            document.getElementById("result").textContent = "It crusted!";
+                        } else {
+                            cash -= betAmount;
+                            localStorage.setItem("cash", cash);
+                            document.getElementById("cash").textContent = cash;
+                            document.getElementById("result").textContent = "You got poop on your fingers."; // "Haha, poop fingers! 🫵😂"
+                        }
+                    } else {
+                        cash += betAmount;
+                        localStorage.setItem("cash", cash);
+                        document.getElementById("cash").textContent = cash;
+                        document.getElementById("result").textContent = "Your Faz-Ass is clean.";
+                    }
+                    // Re-enable the button after the wipe is complete
+                    document.getElementById("wipeButton").disabled = false;
+                }, Math.random() <= 0.1 ? 3000 : 2000); // 10% chance of a 3-second delay, else 2 seconds
+            });
+        });
+    </script>
+</body>
+</html>
