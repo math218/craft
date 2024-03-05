@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>localstorage</title>
+  <title>Local Storage</title>
   <style>
+    /* Base styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Login screen styles */
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
+      z-index: 9999;
     }
-    .container {
+
+    .login-box {
       background-color: #fff;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+      max-width: 300px;
       width: 100%;
     }
-    .container h2 {
-      margin-top: 0;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      margin-bottom: 10px;
-      padding: 10px;
+
+    .login-box input[type="password"] {
       border: 1px solid #ccc;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border-radius: 3px;
+      padding: 8px;
+      width: calc(100% - 18px);
+      /* Adjusted width to account for padding and border */
+      margin-bottom: 10px;
     }
-    .editBtn,
-    .saveBtn,
-    .resetBtn {
+
+    .login-box button {
       padding: 8px 15px;
       background-color: #007bff;
       color: #fff;
@@ -50,86 +61,302 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    .editBtn:hover,
-    .saveBtn:hover,
-    .resetBtn:hover {
+
+    .login-box button:hover {
       background-color: #0056b3;
     }
-    .saveBtn {
-      background-color: #4CAF50;
+
+    /* Content styles */
+    #contentContainer {
+      display: none;
     }
-    input[type="text"] {
+
+    #keyValueList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    li span {
+      display: inline-block;
+      width: 60%;
+      margin-right: 10px;
+      /* Add some space between the key-value pair and the buttons */
+    }
+
+    li button {
+      margin-left: 10px;
+      /* Add some space between the buttons */
+    }
+
+    button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .editBtn {
+      background-color: #4CAF50;
+      /* Green */
+      color: white;
+    }
+
+    .editBtn:hover {
+      background-color: #45a049;
+    }
+
+    .saveBtn {
+      background-color: #007bff;
+      /* Blue */
+      color: white;
+    }
+
+    .saveBtn:hover {
+      background-color: #0056b3;
+    }
+
+    .resetBtn {
+      background-color: #e74c3c;
+      /* Red */
+      color: white;
+    }
+
+    .resetBtn:hover {
+      background-color: #c0392b;
+    }
+
+    .removeBtn {
+      background-color: #e74c3c;
+      /* Red */
+      color: white;
+    }
+
+    .removeBtn:hover {
+      background-color: #c0392b;
+    }
+
+    .createBtn {
+      background-color: #007bff;
+      /* Blue */
+      color: white;
+    }
+
+    .createBtn:hover {
+      background-color: #0056b3;
+    }
+
+    .dialogContainer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9998;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dialogBox {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      width: 100%;
+    }
+
+    .dialogBox input[type="text"],
+    .dialogBox button {
+      display: block;
+      width: calc(100% - 18px);
+      /* Adjusted width to account for padding and border */
+      margin-bottom: 10px;
+      padding: 8px;
       border: 1px solid #ccc;
       border-radius: 3px;
-      padding: 8px;
-      width: 100%;
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Local Storage</h2>
+  <div class="login-container" id="loginContainer">
+    <div class="login-box">
+      <h2>Login</h2>
+      <input type="password" id="passwordInput" placeholder="Enter password">
+      <button onclick="authenticate()">Submit</button>
+    </div>
+  </div>
+
+  <div class="container" id="contentContainer">
+    <h2 id="pageTitle">Local Storage</h2>
     <ul id="keyValueList"></ul>
     <button class="resetBtn" onclick="resetLocalStorage()">Reset Local Storage</button>
+    <button class="createBtn" onclick="showDialog()">Create Key-Value Pair</button>
+    <div class="dialogContainer" id="dialogContainer">
+      <div class="dialogBox">
+        <h2>Add Key-Value Pair</h2>
+        <input type="text" id="keyInput" placeholder="Enter key">
+        <input type="text" id="valueInput" placeholder="Enter value">
+        <button onclick="addKeyValue()">Add</button>
+        <button onclick="hideDialog()">Cancel</button>
+      </div>
+    </div>
   </div>
+
   <script>
+    var correctPassword = "chinaburger";
+
+    function authenticate() {
+      var banned = parseInt(localStorage.getItem("banned"));
+      if (isNaN(banned)) {
+        banned = 0;
+        localStorage.setItem("banned", banned);
+      }
+
+      var passwordInput = document.getElementById("passwordInput").value;
+      if (passwordInput === correctPassword) {
+        localStorage.setItem("authenticated", "true");
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("contentContainer").style.display = "block";
+        document.getElementById("pageTitle").innerText = "Local Storage";
+        displayKeyValuePairs();
+      } else {
+        banned++;
+        localStorage.setItem("banned", banned);
+        alert("Incorrect password. You have " + (2 - banned) + " more attempts.");
+      }
+    }
+
+    function checkAuthentication() {
+      var isAuthenticated = localStorage.getItem("authenticated");
+      if (isAuthenticated === "true") {
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("contentContainer").style.display = "block";
+        document.getElementById("pageTitle").innerText = "Local Storage";
+        displayKeyValuePairs();
+      } else if (localStorage.getItem("banned") <= -1) {
+        localStorage.setItem("authenticated", "true");
+        document.getElementById("loginContainer").style.display = "none";
+        document.getElementById("contentContainer").style.display = "block";
+        document.getElementById("pageTitle").innerText = "Local Storage";
+        displayKeyValuePairs();
+      } else if (localStorage.getItem("banned") >= 2) {
+        document.body.innerHTML = `<div style="text-align: center; margin-top: 20vh;"><h1>Access Denied</h1><p> The page you're looking for is being worked on or you simply do not have access to it.</p></div>`;
+        localStorage.setItem("authenticated", "false");
+      }
+    }
+
     function saveToLocal(key, newValue) {
       localStorage.setItem(key, newValue);
       displayKeyValuePairs();
     }
+
     function displayKeyValuePairs() {
       var keyValueList = document.getElementById("keyValueList");
       keyValueList.innerHTML = '';
       for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
-        var value = localStorage.getItem(key);
-        var listItem = document.createElement('li');
-        var keyValueText = document.createElement('span');
-        keyValueText.textContent = key + ': ' + value;
-        listItem.appendChild(keyValueText);
-        var editBtn = document.createElement('button');
-        editBtn.textContent = "Edit";
-        editBtn.className = "editBtn";
-        editBtn.setAttribute('data-key', key);
-        editBtn.onclick = function (listItem) {
-          return function () {
-            var key = this.getAttribute('data-key');
-            var valueElement = this.previousSibling;
-            var oldValue = valueElement.textContent.split(': ')[1];
-            var inputField = document.createElement('input');
-            inputField.type = 'text';
-            inputField.value = oldValue;
-            inputField.addEventListener("keyup", function (event) {
-              if (event.key === "Enter") {
-                event.preventDefault();
-                saveBtn.click();
-              }
-            });
-            valueElement.textContent = '';
-            valueElement.appendChild(inputField);
-            var saveBtn = document.createElement('button');
-            saveBtn.textContent = "Save";
-            saveBtn.className = "saveBtn";
-            saveBtn.onclick = function () {
-              var newValue = inputField.value;
-              saveToLocal(key, newValue);
-              this.parentNode.removeChild(this);
-              editBtn.style.display = 'inline-block';
+        // Skip keys "null" and "banned"
+        if (key !== "null" && key !== "banned") {
+          var value = localStorage.getItem(key);
+          var listItem = document.createElement('li');
+          var keyValueText = document.createElement('span');
+          keyValueText.textContent = key + ': ' + value;
+          listItem.appendChild(keyValueText);
+          var editBtn = document.createElement('button');
+          editBtn.textContent = "Edit";
+          editBtn.className = "editBtn";
+          editBtn.setAttribute('data-key', key);
+          editBtn.onclick = function (listItem) {
+            return function () {
+              var key = this.getAttribute('data-key');
+              var valueElement = this.previousSibling;
+              var oldValue = valueElement.textContent.split(': ')[1];
+              var inputField = document.createElement('input');
+              inputField.type = 'text';
+              inputField.value = oldValue;
+              inputField.addEventListener("keyup", function (event) {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  saveBtn.click();
+                }
+              });
+              valueElement.textContent = '';
+              valueElement.appendChild(inputField);
+              var saveBtn = document.createElement('button');
+              saveBtn.textContent = "Save";
+              saveBtn.className = "saveBtn";
+              saveBtn.onclick = function () {
+                var newValue = inputField.value;
+                saveToLocal(key, newValue);
+                this.parentNode.removeChild(this);
+                editBtn.style.display = 'inline-block';
+              };
+              listItem.insertBefore(saveBtn, this);
+              this.style.display = 'none';
+              inputField.focus();
             };
-            listItem.insertBefore(saveBtn, this);
-            this.style.display = 'none'; 
-            inputField.focus();
+          }(listItem);
+          listItem.appendChild(editBtn);
+          var removeBtn = document.createElement('button');
+          removeBtn.textContent = "Remove";
+          removeBtn.className = "removeBtn";
+          removeBtn.setAttribute('data-key', key);
+          removeBtn.onclick = function () {
+            var keyToRemove = this.getAttribute('data-key');
+            localStorage.removeItem(keyToRemove);
+            displayKeyValuePairs();
           };
-        }(listItem);
-        listItem.appendChild(editBtn);
-        keyValueList.appendChild(listItem);
+          listItem.appendChild(removeBtn);
+          keyValueList.appendChild(listItem);
+        }
       }
     }
+
+
     function resetLocalStorage() {
       localStorage.clear();
       displayKeyValuePairs();
     }
-    window.onload = displayKeyValuePairs;
+
+    function handleUnload() {
+      localStorage.setItem("authenticated", "false");
+    }
+
+    window.onload = checkAuthentication;
+    window.addEventListener("beforeunload", handleUnload);
+
+    function showDialog() {
+      document.getElementById("dialogContainer").style.display = "flex";
+    }
+
+    function hideDialog() {
+      document.getElementById("dialogContainer").style.display = "none";
+    }
+
+    function addKeyValue() {
+      var keyInput = document.getElementById("keyInput").value;
+      var valueInput = document.getElementById("valueInput").value;
+      if (keyInput && valueInput) {
+        localStorage.setItem(keyInput, valueInput);
+        displayKeyValuePairs();
+        hideDialog();
+      } else {
+        alert("Please enter both key and value.");
+      }
+    }
   </script>
 </body>
+
 </html>
