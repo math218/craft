@@ -1,0 +1,36 @@
+body {
+    background: #8baaec;
+    padding: 0 24px;
+    margin: 2;
+    height: 100vh;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+textarea {
+    background-color: hsl(183, 22%, 66%);
+    border-color: black;
+}
+textarea:hover {
+    cursor: pointer;
+    border-color: black;
+    border-radius: 0%;
+}
+button {
+    background-color: #647eb6c8;
+    color: black;
+    border-color: black;
+    padding: 10px 20px;
+    font-size: 13.4px;
+    transition: all 0.2s ease;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #5569a4;
+}
+button:active {
+    background-color: #3f4f7d;
+    border-left: 2px solid rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+}
